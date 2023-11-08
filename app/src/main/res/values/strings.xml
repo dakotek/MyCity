@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">My City</string>
+
+    <string name="ciudad">Madrid</string>
+
+    <!-- Restaurantes -->
+    <string name="restaurantes">Restaurantes</string>
+    <string-array name="listaRestaurantes">
+        <item>Rte. Sobrino de Botín</item>
+        <item>Rte. Diverxo</item>
+        <item>Rte. El Retiro</item>
+        <item>Rte. La Tasquita de Enfrente</item>
+        <item>Rte. La Cabra</item>
+    </string-array>
+    <string-array name="dirRestaurantes">
+        <item>Calle Cuchilleros, 17</item>
+        <item>Calle Ponzano, 85</item>
+        <item>Calle Ibiza, 29</item>
+        <item>Calle Ballesta, 4</item>
+        <item>Calle Ponzano, 42</item>
+    </string-array>
+    <string-array name="descRestaurantes">
+        <item>Este restaurante es uno de los más antiguos del mundo. Fundado en 1725, ofrece una cocina tradicional española con platos como el cocido madrileño o el cordero lechal.</item>
+        <item>Este restaurante es uno de los más premiados de España. Su chef, Dabiz Muñoz, ofrece una cocina de vanguardia con platos creativos y sorprendentes.</item>
+        <item>Este restaurante ofrece una cocina tradicional española con un toque moderno. Sus platos son elaborados con ingredientes de temporada y de la mejor calidad.</item>
+        <item>Este restaurante es un clásico de la cocina madrileña. Ofrece una carta variada con platos como los callos a la madrileña o los huevos rotos.</item>
+        <item>Este restaurante ofrece una cocina de autor con platos creativos y deliciosos. Su chef, Mario Sandoval, ha sido galardonado con dos estrellas Michelin.</item>
+    </string-array>
+
+
+    <!-- Parques -->
+    <string name="parques">Parques</string>
+    <string-array name="listaParques">
+        <item>Parque del Retiro</item>
+        <item>Parque de la Casa de Campo</item>
+        <item>Parque de El Capricho</item>
+        <item>Parque Juan Carlos I</item>
+        <item>Parque de la Bombilla</item>
+    </string-array>
+    <string-array name="dirParques">
+        <item>Paseo de la Castellana, 7</item>
+        <item>Casa de Campo, 1</item>
+        <item>Paseo Alameda de Osuna, 25</item>
+        <item>Avenida de Portugal, 54</item>
+        <item>Paseo de la Bombilla, 1</item>
+    </string-array>
+    <string-array name="descParques">
+        <item>Es el parque más emblemático de Madrid. Situado en el centro de la ciudad, cuenta con una superficie de 118 hectáreas. El parque está lleno de jardines, fuentes, monumentos y un lago donde se puede dar un paseo en barca.</item>
+        <item>Es el parque más grande de Madrid. Situado al oeste de la ciudad, cuenta con una superficie de 1722 hectáreas. El parque está formado por bosques, praderas, un zoo, un teleférico y un campo de golf.</item>
+        <item>Es un parque histórico situado al oeste de Madrid. Fue construido en el siglo XVIII por la duquesa de Osuna. El parque está lleno de jardines, fuentes, esculturas y un búnker de la Guerra Civil.</item>
+        <item>Es un parque moderno situado al este de Madrid. Fue construido en los años 90. El parque cuenta con jardines, fuentes, un lago, un auditorio al aire libre y un centro de arte.</item>
+        <item>Es un parque situado en el barrio de Chamberí. Cuenta con jardines, fuentes, un lago y un parque infantil.</item>
+    </string-array>
+
+    <!-- Hoteles -->
+    <string name="hoteles">Hoteles</string>
+    <string-array name="listaHoteles">
+        <item>Hotel Ritz</item>
+        <item>Hotel Urban</item>
+        <item>Hotel Santo Mauro</item>
+        <item>Hotel Orfila</item>
+        <item>Hotel Único</item>
+    </string-array>
+    <string-array name="dirHoteles">
+        <item>Calle Sevilla, 3</item>
+        <item>Calle Alcalá, 52</item>
+        <item>Calle Zurbano, 36</item>
+        <item>Calle Orfila, 2</item>
+        <item>Calle Gran Vía, 21</item>
+    </string-array>
+    <string-array name="descHoteles">
+        <item>Este hotel es uno de los más lujosos de Madrid. Cuenta con habitaciones y suites elegantes, un spa, un gimnasio y un restaurante galardonado con una estrella Michelin.</item>
+        <item>Este hotel ofrece una combinación de lujo y modernidad. Cuenta con habitaciones y suites elegantes, un spa, un gimnasio y un restaurante galardonado con dos estrellas Michelin.</item>
+        <item>Este hotel es un encantador palacete del siglo XIX. Cuenta con habitaciones y suites elegantes, un spa, un gimnasio y un restaurante galardonado con una estrella Michelin.</item>
+        <item>Este hotel ofrece una ubicación céntrica y un servicio personalizado. Cuenta con habitaciones y suites elegantes, un spa, un gimnasio y un restaurante.</item>
+        <item>Este hotel ofrece una ubicación privilegiada en el centro de Madrid. Cuenta con habitaciones y suites elegantes, un spa, un gimnasio y un restaurante.</item>
+    </string-array>
+
+    <!-- Supermercados -->
+    <string name="supermercados">Supermercados</string>
+    <string-array name="listaSupermercados">
+        <item>El Corte Inglés</item>
+        <item>Ahorramás</item>
+        <item>Mercadona</item>
+        <item>Lidl</item>
+        <item>Carrefour</item>
+    </string-array>
+    <string-array name="dirSupermercados">
+        <item>Gran Vía, 46</item>
+        <item>Bravo Murillo, 20</item>
+        <item>Avenida de la Ilustración, 19</item>
+        <item>Avenida de América, 10</item>
+        <item>Gran Vía de Hortaleza, 283</item>
+    </string-array>
+    <string-array name="descSupermercados">
+        <item>Es una cadena de grandes almacenes que cuenta con una amplia variedad de productos, incluyendo alimentos, bebidas, productos de limpieza y productos para el hogar. Los supermercados de El Corte Inglés destacan por su gran surtido, su calidad y su servicio al cliente.</item>
+        <item>Es una cadena de supermercados de proximidad que ofrece una buena relación calidad-precio. Los supermercados de Ahorramás destacan por su cercanía, su variedad de productos y sus ofertas.</item>
+        <item>Es una cadena de supermercados de origen valenciano que se ha convertido en la cadena más popular de España. Los supermercados de Mercadona destacan por su calidad, su variedad de productos y sus precios competitivos.</item>
+        <item>Es una cadena de supermercados de origen alemán que se caracteriza por sus precios bajos y su variedad de productos de marca propia. Los supermercados de Lidl destacan por su relación calidad-precio y su oferta de productos frescos.</item>
+        <item>Es una cadena de supermercados de origen francés que cuenta con una amplia variedad de productos, incluyendo alimentos, bebidas, productos de limpieza y productos para el hogar. Los supermercados de Carrefour destacan por su variedad de productos, sus ofertas y sus servicios.</item>
+    </string-array>
+
+    <!-- Gasolineras -->
+    <string name="gasolineras">Gasolineras</string>
+    <string-array name="listaGasolineras">
+        <item>Ballenoil</item>
+        <item>Petroprix</item>
+        <item>Plenoil</item>
+        <item>Galp</item>
+        <item>Q8</item>
+    </string-array>
+    <string-array name="dirGasolineras">
+        <item>Avenida de la Industria, 44</item>
+        <item>Avenida de la Aviación, 7</item>
+        <item>Avenida de la Constitución, 1</item>
+        <item>Avenida de la Ilustración, 19</item>
+        <item>Avenida de América, 10</item>
+    </string-array>
+    <string-array name="descGasolineras">
+        <item>Esta gasolinera de la cadena Ballenoil es la más barata de Madrid en cuanto a gasolina 95. Está situada en el municipio de Tres Cantos, al norte de la ciudad.</item>
+        <item>Esta gasolinera de la cadena Petroprix es la tercera más barata de Madrid en cuanto a gasolina 95. Está situada en el barrio de Tetuán, al norte de la ciudad.</item>
+        <item>Esta gasolinera de la cadena Plenoil es la quinta más barata de Madrid en cuanto a gasolina 95. Está situada en el municipio de Torrejón de Ardoz, al este de la ciudad.</item>
+        <item>Esta gasolinera de la cadena Galp es la sexta más barata de Madrid en cuanto a gasolina 95. Está situada en el barrio de Sanchinarro, al norte de la ciudad.</item>
+        <item>Esta gasolinera de la cadena Q8 es la séptima más barata de Madrid en cuanto a gasolina 95. Está situada en el barrio de Azca, al norte de la ciudad.</item>
+    </string-array>
+</resources>
+
