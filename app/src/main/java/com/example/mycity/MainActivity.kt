@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -173,27 +174,41 @@ fun CategoryScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = stringResource(id = R.string.ciudad),
-                modifier = Modifier
-                    .background(Color.White)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Divider(
-                color = Color.Black,
-                thickness = 2.dp
-            )
-            CategoryItem(R.string.restaurantes, R.drawable.restaurante, listaRestaurantes, navController)
-            CategoryItem(R.string.parques, R.drawable.parque, listaParques, navController)
-            CategoryItem(R.string.hoteles, R.drawable.hotel, listaHoteles, navController)
-            CategoryItem(R.string.supermercados, R.drawable.supermercado, listaSupermercados, navController)
-            CategoryItem(R.string.gasolineras, R.drawable.gasolinera, listaGasolineras, navController)
+            item{
+                Text(
+                    text = stringResource(id = R.string.ciudad),
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Divider(
+                    color = Color.Black,
+                    thickness = 2.dp
+                )
+            }
+            item {
+                CategoryItem(R.string.restaurantes, R.drawable.restaurante, listaRestaurantes, navController)
+                CategoryItem(R.string.parques, R.drawable.parque, listaParques, navController)
+                CategoryItem(R.string.hoteles, R.drawable.hotel, listaHoteles, navController)
+                CategoryItem(R.string.supermercados, R.drawable.supermercado, listaSupermercados, navController)
+                CategoryItem(R.string.gasolineras, R.drawable.gasolinera, listaGasolineras, navController)
+                CategoryItem(R.string.restaurantes, R.drawable.restaurante, listaRestaurantes, navController)
+                CategoryItem(R.string.parques, R.drawable.parque, listaParques, navController)
+                CategoryItem(R.string.hoteles, R.drawable.hotel, listaHoteles, navController)
+                CategoryItem(R.string.supermercados, R.drawable.supermercado, listaSupermercados, navController)
+                CategoryItem(R.string.gasolineras, R.drawable.gasolinera, listaGasolineras, navController)
+                CategoryItem(R.string.restaurantes, R.drawable.restaurante, listaRestaurantes, navController)
+                CategoryItem(R.string.parques, R.drawable.parque, listaParques, navController)
+                CategoryItem(R.string.hoteles, R.drawable.hotel, listaHoteles, navController)
+                CategoryItem(R.string.supermercados, R.drawable.supermercado, listaSupermercados, navController)
+                CategoryItem(R.string.gasolineras, R.drawable.gasolinera, listaGasolineras, navController)
+            }
         }
     }
 }
@@ -204,59 +219,63 @@ fun CategoryDetailScreen(categoryName: String, categoryImage: Int, categoryEleme
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Spacer(modifier = Modifier.width(16.dp))
-                Image(
-                    painter = painterResource(R.drawable.flecha),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp).clickable {
-                        navController.popBackStack()
-                    }
-                )
-                Text(
-                    text = categoryName,
-                    modifier = Modifier
-                        .background(Color.White)
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Divider(
-                color = Color.Black,
-                thickness = 2.dp
-            )
-            categoryElements.forEachIndexed { index, elementName ->
+            item {
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Image(
-                        painter = painterResource(categoryImage),
-                        contentDescription = null,
-                        modifier = Modifier.size(50.dp)
-                    )
                     Spacer(modifier = Modifier.width(16.dp))
+                    Image(
+                        painter = painterResource(R.drawable.flecha),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp).clickable {
+                            navController.popBackStack()
+                        }
+                    )
                     Text(
-                        text = elementName,
+                        text = categoryName,
                         modifier = Modifier
+                            .background(Color.White)
                             .fillMaxWidth()
-                            .clickable {
-                            navController.navigate("item_detail/${categoryName}/${index}")
-                        },
-                        fontSize = 25.sp,
+                            .padding(16.dp),
+                        fontSize = 40.sp,
                         fontWeight = FontWeight.Bold
                     )
+                }
+                Divider(
+                    color = Color.Black,
+                    thickness = 2.dp
+                )
+            }
+            categoryElements.forEachIndexed { index, elementName ->
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(categoryImage),
+                            contentDescription = null,
+                            modifier = Modifier.size(50.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = elementName,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    navController.navigate("item_detail/${categoryName}/${index}")
+                                },
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
         }
