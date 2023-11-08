@@ -288,67 +288,69 @@ fun ItemDetailScreen(categoryName: String, itemName: String, itemImage: Int, ite
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.width(16.dp))
-            Image(
-                painter = painterResource(R.drawable.flecha),
-                contentDescription = null,
-                modifier = Modifier.size(24.dp).clickable {
-                    navController.popBackStack()
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Image(
+                        painter = painterResource(R.drawable.flecha),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp).clickable {
+                            navController.popBackStack()
+                        }
+                    )
+                    Text(
+                        text = categoryName,
+                        modifier = Modifier
+                            .background(Color.White)
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
-            )
-            Text(
-                text = categoryName,
-                modifier = Modifier
-                    .background(Color.White)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-            Divider(
-                color = Color.Black,
-                thickness = 2.dp
-            )
-            Image(
-                painter = painterResource(itemImage),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .padding(16.dp),
-            )
-            Text(
-                text = itemName,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = itemAddress,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 20.sp
-            )
-            Text(
-                text = itemDescription,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                fontSize = 20.sp
-            )
+                Divider(
+                    color = Color.Black,
+                    thickness = 2.dp
+                )
+                Image(
+                    painter = painterResource(itemImage),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(16.dp),
+                )
+                Text(
+                    text = itemName,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = itemAddress,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = itemDescription,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    fontSize = 20.sp
+                )
+            }
         }
     }
 }
