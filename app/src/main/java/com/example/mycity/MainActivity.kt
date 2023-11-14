@@ -41,9 +41,9 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 // Definición de las rutas y pantallas en el NavHost
-                NavHost(navController, startDestination = R.id.categoryScreen.toString()) {
+                NavHost(navController, startDestination = "@+id/categoryScreen") {
                     // Pantalla 1 (Categorías)
-                    composable(R.id.categoryScreen.toString()) {
+                    composable("@+id/categoryScreen") {
                         CategoryScreen(navController = navController, context = this@MainActivity)
                     }
                     // Pantalla 2 (Items de la categoría)
