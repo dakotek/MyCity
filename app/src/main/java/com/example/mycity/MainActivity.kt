@@ -1,5 +1,6 @@
 package com.example.mycity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,11 +9,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,101 +35,45 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val listaRestaurantes = resources.getStringArray(R.array.listaRestaurantes).toList()
-        val listaParques = resources.getStringArray(R.array.listaParques).toList()
-        val listaHoteles = resources.getStringArray(R.array.listaHoteles).toList()
-        val listaSupermercados = resources.getStringArray(R.array.listaSupermercados).toList()
-        val listaGasolineras = resources.getStringArray(R.array.listaGasolineras).toList()
-        val dirRestaurantes = resources.getStringArray(R.array.dirRestaurantes).toList()
-        val dirParques = resources.getStringArray(R.array.dirParques).toList()
-        val dirHoteles = resources.getStringArray(R.array.dirHoteles).toList()
-        val dirSupermercados = resources.getStringArray(R.array.dirSupermercados).toList()
-        val dirGasolineras = resources.getStringArray(R.array.dirGasolineras).toList()
-        val descRestaurantes = resources.getStringArray(R.array.descRestaurantes).toList()
-        val descParques = resources.getStringArray(R.array.descParques).toList()
-        val descHoteles = resources.getStringArray(R.array.descHoteles).toList()
-        val descSupermercados = resources.getStringArray(R.array.descSupermercados).toList()
-        val descGasolineras = resources.getStringArray(R.array.descGasolineras).toList()
-
         setContent {
             MyCityTheme {
+                // Configuración del controlador de navegación
                 val navController = rememberNavController()
+
+                // Definición de las rutas y pantallas en el NavHost
                 NavHost(navController, startDestination = R.id.categoryScreen.toString()) {
+                    // Pantalla 1 (Categorías)
                     composable(R.id.categoryScreen.toString()) {
-                        CategoryScreen(
-                            navController = navController,
-                            listaRestaurantes = listaRestaurantes,
-                            listaParques = listaParques,
-                            listaHoteles = listaHoteles,
-                            listaSupermercados = listaSupermercados,
-                            listaGasolineras = listaGasolineras
-                        )
+                        CategoryScreen(navController = navController, context = this@MainActivity)
                     }
+                    // Pantalla 2 (Items de la categoría)
                     composable(
-                        route = "category_detail/{categoryName}",
-                        arguments = listOf(navArgument("categoryName") { type = NavType.StringType })
+                        route = "category_detail/{categoryName}/{imageName}/{serializedElements}",
+                        arguments = listOf(
+                            navArgument("categoryName") { type = NavType.StringType; nullable = false },
+                            navArgument("imageName") { type = NavType.IntType; nullable = false },
+                            navArgument("serializedElements") { type = NavType.StringArrayType; nullable = false }
+                        )
                     ) { backStackEntry ->
                         val categoryName = backStackEntry.arguments?.getString("categoryName") ?: ""
-                        val categoryElements = when (categoryName) {
-                            "Restaurantes" -> listaRestaurantes
-                            "Parques" -> listaParques
-                            "Hoteles" -> listaHoteles
-                            "Supermercados" -> listaSupermercados
-                            "Gasolineras" -> listaGasolineras
-                            else -> emptyList()
-                        }
-                        val categoryImage = when (categoryName) {
-                            "Restaurantes" -> R.drawable.restaurante
-                            "Parques" -> R.drawable.parque
-                            "Hoteles" -> R.drawable.hotel
-                            "Supermercados" -> R.drawable.supermercado
-                            "Gasolineras" -> R.drawable.gasolinera
-                            else -> R.drawable.resource_default
-                        }
-                        CategoryDetailScreen(categoryName, categoryImage, categoryElements, navController)
+                        val imageName = backStackEntry.arguments?.getInt("imageName") ?: 0
+                        val serializedElements = backStackEntry.arguments?.getStringArray("serializedElements")?.toList() ?: emptyList()
+                        CategoryDetailScreen(categoryName, imageName, serializedElements, navController)
                     }
+                    //Pantalla 3 (Detalles del item)
                     composable(
-                        route = "item_detail/{categoryName}/{itemIndex}",
+                        route = "item_detail/{categoryName}/{itemIndex}/{imageName}",
                         arguments = listOf(
-                            navArgument("categoryName") { type = NavType.StringType },
-                            navArgument("itemIndex") { type = NavType.IntType }
+                            navArgument("categoryName") { type = NavType.StringType; nullable = false },
+                            navArgument("itemIndex") { type = NavType.IntType; nullable = false },
+                            navArgument("imageName") { type = NavType.IntType; nullable = false }
                         )
                     ) { backStackEntry ->
                         val categoryName = backStackEntry.arguments?.getString("categoryName") ?: ""
                         val itemIndex = backStackEntry.arguments?.getInt("itemIndex") ?: 0
-                        val itemName = when (categoryName) {
-                            "Restaurantes" -> listaRestaurantes[itemIndex]
-                            "Parques" -> listaParques[itemIndex]
-                            "Hoteles" -> listaHoteles[itemIndex]
-                            "Supermercados" -> listaSupermercados[itemIndex]
-                            "Gasolineras" -> listaGasolineras[itemIndex]
-                            else -> ""
-                        }
-                        val itemImage = when (categoryName) {
-                            "Restaurantes" -> R.drawable.restaurante
-                            "Parques" -> R.drawable.parque
-                            "Hoteles" -> R.drawable.hotel
-                            "Supermercados" -> R.drawable.supermercado
-                            "Gasolineras" -> R.drawable.gasolinera
-                            else -> R.drawable.resource_default
-                        }
-                        val itemAddress = when (categoryName) {
-                            "Restaurantes" -> dirRestaurantes[itemIndex]
-                            "Parques" -> dirParques[itemIndex]
-                            "Hoteles" -> dirHoteles[itemIndex]
-                            "Supermercados" -> dirSupermercados[itemIndex]
-                            "Gasolineras" -> dirGasolineras[itemIndex]
-                            else -> ""
-                        }
-                        val itemDescription = when (categoryName) {
-                            "Restaurantes" -> descRestaurantes[itemIndex]
-                            "Parques" -> descParques[itemIndex]
-                            "Hoteles" -> descHoteles[itemIndex]
-                            "Supermercados" -> descSupermercados[itemIndex]
-                            "Gasolineras" -> descGasolineras[itemIndex]
-                            else -> ""
-                        }
-                        ItemDetailScreen(categoryName, itemName, itemImage, itemAddress, itemDescription, navController)
+                        val imageName = backStackEntry.arguments?.getInt("imageName") ?: 0
+
+                        ItemDetailScreen(categoryName, itemIndex, imageName, navController)
                     }
                 }
             }
@@ -134,26 +81,32 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Función para crear un elemento de categoría
 @Composable
 fun CategoryItem(categoryName: Int, imageName: Int, categoryElements: List<String>, navController: NavController) {
+    // Obtener la cadena de nombre de la categoría a partir del recurso
     val categoryNameString = stringResource(categoryName)
 
+    // Diseño de fila para el elemento de categoría
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Imagen de la categoría
         Image(
             painter = painterResource(imageName),
             contentDescription = null,
             modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
+        // Texto de la categoría, clickable para la pantalla de los items de la misma
         Text(
             text = categoryNameString,
             modifier = Modifier.clickable {
-                navController.navigate("category_detail/$categoryNameString")
+                val serializedElements = categoryElements.joinToString(",")
+                navController.navigate("category_detail/$categoryNameString/$imageName/$serializedElements")
             },
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold
@@ -161,15 +114,19 @@ fun CategoryItem(categoryName: Int, imageName: Int, categoryElements: List<Strin
     }
 }
 
+// Función para cargar datos desde los recursos
+fun loadData(arrayResourceId: Int, context: Context): List<String> {
+    return context.resources.getStringArray(arrayResourceId).toList()
+}
+
 @Composable
-fun CategoryScreen(
-    navController: NavController,
-    listaRestaurantes: List<String>,
-    listaParques: List<String>,
-    listaHoteles: List<String>,
-    listaSupermercados: List<String>,
-    listaGasolineras: List<String>
-) {
+fun CategoryScreen(navController: NavController, context: Context) {
+    val listaRestaurantes by remember { mutableStateOf(loadData(R.array.listaRestaurantes, context)) }
+    val listaParques by remember { mutableStateOf(loadData(R.array.listaParques, context)) }
+    val listaHoteles by remember { mutableStateOf(loadData(R.array.listaHoteles, context)) }
+    val listaSupermercados by remember { mutableStateOf(loadData(R.array.listaSupermercados, context)) }
+    val listaGasolineras by remember { mutableStateOf(loadData(R.array.listaGasolineras, context)) }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -178,6 +135,7 @@ fun CategoryScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             item{
+                // Título de la ciudad
                 Text(
                     text = stringResource(id = R.string.ciudad),
                     modifier = Modifier
@@ -192,6 +150,7 @@ fun CategoryScreen(
                     thickness = 2.dp
                 )
             }
+            // Categorias
             item {
                 CategoryItem(R.string.restaurantes, R.drawable.restaurante, listaRestaurantes, navController)
                 CategoryItem(R.string.parques, R.drawable.parque, listaParques, navController)
@@ -213,8 +172,9 @@ fun CategoryScreen(
     }
 }
 
+// Pantalla de detalles de la categoría
 @Composable
-fun CategoryDetailScreen(categoryName: String, categoryImage: Int, categoryElements: List<String>, navController: NavController) {
+fun CategoryDetailScreen(categoryName: String, imageName: Int, categoryElements: List<String>, navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -223,6 +183,7 @@ fun CategoryDetailScreen(categoryName: String, categoryImage: Int, categoryEleme
             modifier = Modifier.fillMaxSize()
         ) {
             item {
+                // Encabezado con flecha de retroceso y nombre de la categoría
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -251,39 +212,87 @@ fun CategoryDetailScreen(categoryName: String, categoryImage: Int, categoryEleme
                     thickness = 2.dp
                 )
             }
-            categoryElements.forEachIndexed { index, elementName ->
-                item {
-                    Row(
+
+            // Items de la categoría
+            val separatedElements = categoryElements.flatMap { it.split(",") }
+
+            itemsIndexed(separatedElements) { index, elementName ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Imagen de la categoria
+                    Image(
+                        painter = painterResource(imageName),
+                        contentDescription = null,
+                        modifier = Modifier.size(50.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    // Texto del elemento, clickable para la pantalla de detalles del item
+                    Text(
+                        text = elementName,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(categoryImage),
-                            contentDescription = null,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = elementName,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    navController.navigate("item_detail/${categoryName}/${index}")
-                                },
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
+                            .clickable {
+                                navController.navigate("item_detail/${categoryName}/${index}/$imageName")
+                            },
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
     }
 }
 
+// Pantalla de detalles del item
 @Composable
-fun ItemDetailScreen(categoryName: String, itemName: String, itemImage: Int, itemAddress: String, itemDescription: String, navController: NavController) {
+fun ItemDetailScreen(categoryName: String, itemIndex: Int, imageName: Int, navController: NavController) {
+    // Cargar listas de datos según la categoría
+    val listaItems: List<String>
+    val listaDirecciones: List<String>
+    val listaDescripciones: List<String>
+
+    when (categoryName) {
+        "Restaurantes" -> {
+            listaItems = loadData(R.array.listaRestaurantes, LocalContext.current)
+            listaDirecciones = loadData(R.array.dirRestaurantes, LocalContext.current)
+            listaDescripciones = loadData(R.array.descRestaurantes, LocalContext.current)
+        }
+        "Parques" -> {
+            listaItems = loadData(R.array.listaParques, LocalContext.current)
+            listaDirecciones = loadData(R.array.dirParques, LocalContext.current)
+            listaDescripciones = loadData(R.array.descParques, LocalContext.current)
+        }
+        "Hoteles" -> {
+            listaItems = loadData(R.array.listaHoteles, LocalContext.current)
+            listaDirecciones = loadData(R.array.dirHoteles, LocalContext.current)
+            listaDescripciones = loadData(R.array.descHoteles, LocalContext.current)
+        }
+        "Supermercados" -> {
+            listaItems = loadData(R.array.listaSupermercados, LocalContext.current)
+            listaDirecciones = loadData(R.array.dirSupermercados, LocalContext.current)
+            listaDescripciones = loadData(R.array.descSupermercados, LocalContext.current)
+        }
+        "Gasolineras" -> {
+            listaItems = loadData(R.array.listaGasolineras, LocalContext.current)
+            listaDirecciones = loadData(R.array.dirGasolineras, LocalContext.current)
+            listaDescripciones = loadData(R.array.descGasolineras, LocalContext.current)
+        }
+        else -> {
+            listaItems = emptyList()
+            listaDirecciones = emptyList()
+            listaDescripciones = emptyList()
+        }
+    }
+
+    // Obtener datos específicos del elemento seleccionado
+    val itemSeleccionado = listaItems[itemIndex]
+    val direccion = listaDirecciones[itemIndex]
+    val descripcion = listaDescripciones[itemIndex]
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -292,6 +301,7 @@ fun ItemDetailScreen(categoryName: String, itemName: String, itemImage: Int, ite
             modifier = Modifier.fillMaxSize()
         ) {
             item {
+                // Encabezado con flecha de retroceso y nombre de la categoría
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -319,16 +329,18 @@ fun ItemDetailScreen(categoryName: String, itemName: String, itemImage: Int, ite
                     color = Color.Black,
                     thickness = 2.dp
                 )
+                // Imagen de la categoria
                 Image(
-                    painter = painterResource(itemImage),
+                    painter = painterResource(imageName),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)
                         .padding(16.dp),
                 )
+                // Nombre del item seleccionado
                 Text(
-                    text = itemName,
+                    text = itemSeleccionado,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -336,15 +348,17 @@ fun ItemDetailScreen(categoryName: String, itemName: String, itemImage: Int, ite
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
+                // Direccion del item seleccionado
                 Text(
-                    text = itemAddress,
+                    text = direccion,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
                     fontSize = 20.sp
                 )
+                // Descripcion del item seleccionado
                 Text(
-                    text = itemDescription,
+                    text = descripcion,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
